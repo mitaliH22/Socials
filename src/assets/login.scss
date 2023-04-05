@@ -1,11 +1,54 @@
 body{
     background-color: white;
+    h2{
+        margin-bottom: 0;
+    }
     .login-form{
         display: flex;
         justify-content: space-around;
+        align-items: center;
         form{
             display: flex;
             flex-direction: column;
-        }
+            label{
+                color: #1a2e35;
+                font-weight: 500;
+            }
+            input ,  button {
+                padding: 5px;
+            }
+            button{
+                margin-top: 10px;
+                font-size: 16px;
+                background-color: #1a2e35;
+                color: white;
+            }
+            p{
+                text-align: center;
+                margin-bottom: 0;
+            }
+            h3{
+                margin: 0;
+            }
+            }
+            .googleLogin{
+                img{
+                    width: 20px;
+                    float: left;
+                }
+                border: none;
+                background-color: white;
+                padding: 5px;
+                box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.22);
+                color: #1a2e35;
+                font-weight: 500;
+                &:hover{
+                    cursor: pointer;
+                }
+            }   
     }
+}
+
+.login-data{
+    flex: .5;
 }

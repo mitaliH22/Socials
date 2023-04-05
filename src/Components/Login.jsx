@@ -1,28 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './../assets/login.scss';
-import img from './../assets/img.png';
+import Loginform from './Loginform';
+import Home from './Home';
 
-function Login() {
-  return (
+function Login() {  
+  const [isLoggedIn , setLoggedIn] =useState(false || localStorage.getItem('loggedIn'));
+  return !isLoggedIn ? (
     <div className="wrapper">
-      <h2>Socials UI</h2>
-      <div className="login-form">
-        <div className="login-data">
-            <form action="">
-              <label htmlFor="username">Username</label>
-              <input type="text" />
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" id="pwd" />
-              <button>Login</button>
-              <p>Or</p>
-              <h3>Login/Signup with Socials</h3>
-            </form>
-        </div>
-        <div className="image">
-          <img src={img} alt="login" />
-        </div>
-      </div>
+      <Loginform setLoggedIn={setLoggedIn} />
     </div>
+  ) : (
+    <Home isLoggedIn={isLoggedIn} />
   );
 }
 
