@@ -1,9 +1,13 @@
 import { initializeApp } from "firebase/app";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
   getAuth,
   signInWithPopup,
   GoogleAuthProvider,
+  signOut
 } from "firebase/auth";
+
+const AuthContext = createContext(null);
 
 const firebaseConfig = {
   apiKey: "AIzaSyCYF1i7X4Xr-FsMWxsAoHRIfkxsijmPAGM",
@@ -15,19 +19,24 @@ const firebaseConfig = {
   measurementId: "G-Z7PLW6VKG0",
 };
 
-const app = initializeApp(firebaseConfig);
+export const AuthProvider = ({children}) =>{
+  const app = initializeApp(firebaseConfig);
+  const provider = new GoogleAuthProvider();
+  const auth = getAuth(app);
 
-const provider = new GoogleAuthProvider();
-const auth = getAuth(app);
+  const [user, setUser] = useState(
+    JSON.parse(localStorage.getItem("user")) || []
+  );
 
-export const signIn =  (callback) => {
+
+  const signIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log(user);
-        callback(user);
+        setUser(user);
+        localStorage.setItem("user", JSON.stringify(user));
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -36,4 +45,30 @@ export const signIn =  (callback) => {
         const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(error);
       });
+  };
+
+  const getUser = () =>{
+      return user;
+  }
+
+  const logout = () =>{
+    signOut(auth)
+      .then(() => {
+        console.log('logged out');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }
+
+  return (
+    <AuthContext.Provider value={{ signIn, getUser , logout }}>
+      {children}
+    </AuthContext.Provider>
+  ); 
 }
+
+export const Authcontext = () => {
+  return useContext(AuthContext);
+};

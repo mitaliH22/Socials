@@ -1,9 +1,11 @@
 import React from 'react'
 import img from "./../assets/img.png";
-import { signIn } from "../firebase";
 import logo from "./../assets/google.png";
+import { Authcontext } from "./../firebase";
 
-function Loginform(props) {
+function Loginform() {
+  const auth = Authcontext();
+  
   return (
     <div>
       <div className="login-form">
@@ -19,7 +21,7 @@ function Loginform(props) {
               className="googleLogin"
               onClick={(e) => {
                 e.preventDefault();
-                signIn(props.setLoggedIn);
+                auth.signIn();
               }}
             >
               <img src={logo} alt="google" />
