@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './../assets/login.scss';
 import Loginform from './Loginform';
 import Home from './Home';

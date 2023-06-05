@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import {
   getAuth,
   signInWithPopup,
@@ -34,15 +34,16 @@ export const AuthProvider = ({children}) =>{
       .then((result) => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
+        console.log(token);
         const user = result.user;
         setUser(user);
         localStorage.setItem("user", JSON.stringify(user));
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
+        // const errorCode = error.code;
+        // const errorMessage = error.message;
+        // const email = error.customData.email;
+        // const credential = GoogleAuthProvider.credentialFromError(error);
         console.log(error);
       });
   };
