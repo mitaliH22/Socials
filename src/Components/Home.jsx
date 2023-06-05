@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import "./../assets/home.scss";
 import { Authcontext } from "./../firebase";
 
